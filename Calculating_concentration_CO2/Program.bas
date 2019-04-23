@@ -1,7 +1,3 @@
-'На базе МК и датчика MQ-135 разработать схему и прошивку устройства,
-'контролирующего концентрацию СО2 в помещении с цветовой индикацией и
-'выводом информации на LCD и в UART.
-
 'PIC16F877A
 
 Hseropen 9600  'Open hardware UART port for data transfer speed 9600
@@ -58,15 +54,15 @@ Lcdout "   ", #concentration_co2, " ppm"
 
 If concentration_co2 > 1000 Then  'Set the condition, according to statistics, the permissible concentration of CO2 in the air should not exceed 1000 ppm
 warning_led = 1  'The power supply to the port with led
-Hserout "ПРЕВЫШЕНИЕ ДОПУСТИМОЙ КОНЦЕНТРАЦИИ CO2!!!", CrLf  'Sending values of concentrations in a hardware UART port
-Serout PORTC.0, 9600, "ПРЕВЫШЕНИЕ ДОПУСТИМОЙ КОНЦЕНТРАЦИИ CO2!!!", CrLf  'Sending values of concentrations in a software UART port
+Hserout "EXCEEDING THE ALLOWABLE CO2 CONCENTRATION!!!", CrLf  'Sending values of concentrations in a hardware UART port
+Serout PORTC.0, 9600, "EXCEEDING THE ALLOWABLE CO2 CONCENTRATION!!!", CrLf  'Sending values of concentrations in a software UART port
 Else
-warning_led = 0  'Выключение светодиода
+warning_led = 0  'Turn off led
 Endif
 
 loopend:
 
 WaitMs 100
-Lcdcmdout LcdClear  'Очистка LCD
+Lcdcmdout LcdClear  ' LCD cleaning     
 
 Goto loop
